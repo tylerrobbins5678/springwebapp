@@ -6,8 +6,12 @@ public class User {
   private String lname;
   private String password;
 
+  public User() {
+
+  }
 
   public User(String email, String fname, String lname, String password) {
+    super();
     this.email = email;
     this.fname = fname;
     this.lname = lname;
