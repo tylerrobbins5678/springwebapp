@@ -1,11 +1,13 @@
 package us.tylerrobbins.corewebspring.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -28,18 +30,19 @@ public class LoginController {
         users.stream().filter(n -> n.getEmail().equals(email)).map(n -> n.getFname()).findAny();
 
     if (name.isPresent()) {
-      return "Hello " + name.get() + " please enter your password";
+      return "welcome to " + name.get() + "'s page";
     } else {
       return "invalid email";
     }
   }
 
-  @RequestMapping(value = "/account/{email}", method = RequestMethod.POST)
-  String userlogin(@PathVariable("email") String email, @RequestParam String password) {
+  @RequestMapping(value = "/account/login", method = RequestMethod.POST)
+  String userlogin(@RequestBody HashMap<String, String> user) {
 
-    Optional<User> account = users.stream().filter(n -> n.getEmail().equals(email)).findAny();
+    Optional<User> account =
+        users.stream().filter(n -> n.getEmail().equals(user.get("email"))).findAny();
     if (account.isPresent()) {
-      boolean userLogin = account.get().login(password);
+      boolean userLogin = account.get().login(user.get("password"));
 
       if (userLogin) {
         return "Login Sucessful";
@@ -54,11 +57,10 @@ public class LoginController {
 
 
   @RequestMapping(value = "/account/create", method = RequestMethod.POST)
-  String userCreateAccount(@RequestParam String password, @RequestParam String fname,
-      @RequestParam String lname, @RequestParam String email) {
+  String userCreateAccount(@RequestBody User user) {
 
-    users.add(new User(email, fname, lname, password));
-    return "redirect:/account/" + email;
+    users.add(user);
+    return "redirect:/account/" + user.getEmail();
   }
 
   @RequestMapping(value = "/account/search", method = RequestMethod.GET)
