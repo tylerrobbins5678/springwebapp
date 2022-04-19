@@ -36,6 +36,7 @@ public class LoginController {
     }
   }
 
+  // user login functionality
   @RequestMapping(value = "/account/login", method = RequestMethod.POST)
   String userlogin(@RequestBody HashMap<String, String> user) {
 
@@ -56,17 +57,20 @@ public class LoginController {
   }
 
 
-  @RequestMapping(value = "/account/create", method = RequestMethod.POST)
+  // create account
+  @RequestMapping(value = "/account", method = RequestMethod.POST)
   String userCreateAccount(@RequestBody User user) {
 
     users.add(user);
-    return "redirect:/account/" + user.getEmail();
+    return "Sucessful";
   }
 
-  @RequestMapping(value = "/account/search", method = RequestMethod.GET)
-  List<User> userSearchAccount(@RequestParam(required = false) Optional<String> fname,
-      @RequestParam(required = false) Optional<String> lname,
-      @RequestParam(required = false) Optional<String> email) {
+  // get account matching parameters
+  @RequestMapping(value = "/account", method = RequestMethod.GET)
+  List<User> userSearchAccount(
+      @RequestParam(required = false, name = "fname") Optional<String> fname,
+      @RequestParam(required = false, name = "lname") Optional<String> lname,
+      @RequestParam(required = false, name = "email") Optional<String> email) {
 
     // create a stream to pass through filters
     Stream<User> resultStream = users.stream();
