@@ -1,2 +1,2 @@
 # springwebapp
-simple web application to demonstrate spring boot
+simple login API implimented in spring boot.
