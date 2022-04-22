@@ -1,0 +1,10 @@
+spring:
+  jpa:
+    database: DEFAULT
+    show-sql: true
+    hibernate:
+      ddl-auto: none
+  datasource:
+    url: jdbc:mariadb://10.0.1.1:3306/tylerrobbins
+    username: tyler
+    password: quintrix-tyler

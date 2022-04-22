@@ -1,6 +1,13 @@
 package us.tylerrobbins.corewebspring.model;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "users")
 public class User {
+  @Id
   private String email;
   private String fname;
   private String lname;
@@ -19,14 +26,9 @@ public class User {
   }
 
   // unpopular opinion to have login method in DAO, but this adds more security
-  public boolean login(String password) {
-    if (this.password.equals(password)) {
-      return true;
-    } else {
-      return false;
-    }
+  public String getPassword() {
+    return this.password;
   }
-
 
   public void setPassword(String password) {
     this.password = password;
