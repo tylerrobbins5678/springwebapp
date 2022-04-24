@@ -11,13 +11,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import us.tylerrobbins.corewebspring.model.User;
+import us.tylerrobbins.corewebspring.model.UserPublic;
 import us.tylerrobbins.corewebspring.service.UserAccountManagerService;
 
 @RestController
 public class LoginController {
 
   @Autowired
-  private UserAccountManagerService userAccountManager;
+  UserAccountManagerService userAccountManager;
 
   // provide account homepage
   @RequestMapping(value = "/account/{email}", method = RequestMethod.GET)
@@ -53,7 +54,7 @@ public class LoginController {
 
   // only return fname and lname
   @RequestMapping(value = "/", method = RequestMethod.GET)
-  List<String> showAllUsers() {
+  List<UserPublic> showAllUsers() {
 
     return userAccountManager.getAllUsers();
   }

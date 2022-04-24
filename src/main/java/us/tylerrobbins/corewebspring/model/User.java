@@ -8,8 +8,10 @@ import javax.persistence.Table;
 @Table(name = "users")
 public class User {
   @Id
+  private int id;
   private String email;
   private String fname;
+
   private String lname;
   private String password;
 
@@ -17,15 +19,23 @@ public class User {
 
   }
 
-  public User(String email, String fname, String lname, String password) {
+  public User(String email, String fname, String lname, String password, int id) {
     super();
+    this.id = id;
     this.email = email;
     this.fname = fname;
     this.lname = lname;
     this.password = password;
   }
 
-  // unpopular opinion to have login method in DAO, but this adds more security
+  public int getId() {
+    return id;
+  }
+
+  public void setId(int id) {
+    this.id = id;
+  }
+
   public String getPassword() {
     return this.password;
   }
@@ -62,10 +72,5 @@ public class User {
 
   public void setLname(String lname) {
     this.lname = lname;
-  }
-
-  // simplify
-  public String getFullName() {
-    return this.fname + " " + this.lname;
   }
 }
