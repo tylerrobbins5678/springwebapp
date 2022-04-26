@@ -2,32 +2,32 @@ package us.tylerrobbins.corewebspring.model;
 
 public class UserPublic {
 
-  public String fname;
-  public String lname;
+  private String firstName;
+  private String lastName;
 
-  public UserPublic(String fname, String lname) {
+  public UserPublic(String firstName, String lastName) {
     super();
-    this.fname = fname;
-    this.lname = lname;
+    this.firstName = firstName;
+    this.lastName = lastName;
   }
 
   public UserPublic() {
     super();
   }
 
-  public String getFname() {
-    return fname;
+  public String getfirstName() {
+    return firstName;
   }
 
-  public void setFname(String fname) {
-    this.fname = fname;
+  public void setfirstName(String firstName) {
+    this.firstName = firstName;
   }
 
-  public String getLname() {
-    return lname;
+  public String getlastName() {
+    return lastName;
   }
 
-  public void setLname(String lname) {
-    this.lname = lname;
+  public void setlastName(String lname) {
+    this.lastName = lname;
   }
 }
