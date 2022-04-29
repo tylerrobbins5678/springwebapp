@@ -8,3 +8,4 @@ spring:
     url: jdbc:mariadb://10.0.1.1:3306/tylerrobbins
     username: tyler
     password: quintrix-tyler
+nickNameApiUri: http://api.friendlyrobot.fr/v2/nicknames/{name}/email/tylerrobbins5678@gmail.com/company/quintrix

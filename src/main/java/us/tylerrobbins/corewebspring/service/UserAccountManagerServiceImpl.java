@@ -6,7 +6,11 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
-import us.tylerrobbins.corewebspring.model.User;
+import us.tylerrobbins.corewebspring.RESTservice.RestService;
+import us.tylerrobbins.corewebspring.entity.User;
+import us.tylerrobbins.corewebspring.model.NickNameList;
+import us.tylerrobbins.corewebspring.model.Nickname;
+import us.tylerrobbins.corewebspring.model.UserPrivate;
 import us.tylerrobbins.corewebspring.model.UserPublic;
 import us.tylerrobbins.corewebspring.repository.UserRepository;
 
@@ -16,16 +20,36 @@ public class UserAccountManagerServiceImpl implements UserAccountManagerService 
   @Autowired
   UserRepository userRepository;
 
+  @Autowired
+  RestService restService;
+
 
   @Override
-  public String getPublicAccount(String email) {
+  public UserPrivate getPublicAccount(String email) {
 
-    Optional<User> account = userRepository.findByEmail(email);
+    Optional<User> accountOpt = userRepository.findByEmail(email);
 
-    if (account.isPresent()) {
-      return account.get().getFname();
+    if (accountOpt.isPresent()) {
+      User account = accountOpt.get();
+      // account.getFname()
+      Optional<NickNameList> nickNmaesList = restService.getNickNames(account.getFname());
+
+      // nickname found, return user with nickname
+      if (nickNmaesList.isPresent()) {
+        List<Nickname> nickNames = nickNmaesList.get().getNicknames();
+
+        return new UserPrivate(account.getEmail(), account.getFname(), account.getLname(),
+            nickNames);
+      }
+
+      // no nicknames found, return null
+      else {
+        return new UserPrivate(account.getEmail(), account.getFname(), account.getLname(), null);
+      }
+
+      // no user found, return empty object
     } else {
-      return " ";
+      return new UserPrivate();
     }
   }
 
@@ -57,17 +81,17 @@ public class UserAccountManagerServiceImpl implements UserAccountManagerService 
 
   // search users table for accounts with maching paramaters
   @Override
-  public List<User> searchAccounts(Optional<String> fname, Optional<String> lname,
+  public List<User> searchAccounts(Optional<String> firstName, Optional<String> lastName,
       Optional<String> email) {
 
     // create User and find all examples
     User user = new User();
 
-    if (fname.isPresent()) {
-      user.setFname(fname.get());
+    if (firstName.isPresent()) {
+      user.setFname(firstName.get());
     }
-    if (lname.isPresent()) {
-      user.setLname(lname.get());
+    if (lastName.isPresent()) {
+      user.setLname(lastName.get());
     }
     if (email.isPresent()) {
       user.setEmail(email.get());
@@ -80,7 +104,7 @@ public class UserAccountManagerServiceImpl implements UserAccountManagerService 
 
   @Override
   public List<UserPublic> getAllUsers() {
-    return userRepository.getAllUsers();
+    return userRepository.getAllUsersPublic();
   }
 }
 

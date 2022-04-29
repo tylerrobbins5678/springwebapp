@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import us.tylerrobbins.corewebspring.model.User;
+import us.tylerrobbins.corewebspring.entity.User;
 import us.tylerrobbins.corewebspring.model.UserPublic;
 import us.tylerrobbins.corewebspring.service.UserAccountManagerService;
 
@@ -22,7 +22,7 @@ public class LoginController {
 
   // provide account homepage
   @RequestMapping(value = "/account/{email}", method = RequestMethod.GET)
-  String userAccount(@PathVariable("email") String email) {
+  UserPublic userAccount(@PathVariable("email") String email) {
 
     return userAccountManager.getPublicAccount(email);
   }
@@ -45,8 +45,8 @@ public class LoginController {
   // get account matching parameters
   @RequestMapping(value = "/account", method = RequestMethod.GET)
   List<User> userSearchAccount(
-      @RequestParam(required = false, name = "fname") Optional<String> fname,
-      @RequestParam(required = false, name = "lname") Optional<String> lname,
+      @RequestParam(required = false, name = "firstname") Optional<String> fname,
+      @RequestParam(required = false, name = "lastname") Optional<String> lname,
       @RequestParam(required = false, name = "email") Optional<String> email) {
 
     return userAccountManager.searchAccounts(fname, lname, email);

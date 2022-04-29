@@ -1,33 +1,46 @@
 package us.tylerrobbins.corewebspring.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class UserPublic {
 
-  private String firstName;
-  private String lastName;
+  protected String fname;
+  protected String lname;
 
-  public UserPublic(String firstName, String lastName) {
+  public UserPublic(String fname, String lname) {
     super();
-    this.firstName = firstName;
-    this.lastName = lastName;
+    this.fname = fname;
+    this.lname = lname;
   }
 
   public UserPublic() {
     super();
   }
 
-  public String getfirstName() {
-    return firstName;
+  @JsonIgnore
+  public String getFname() {
+    return fname;
   }
 
-  public void setfirstName(String firstName) {
-    this.firstName = firstName;
+  public String getFirstName() {
+    return fname;
   }
 
-  public String getlastName() {
-    return lastName;
+  public void setFname(String fName) {
+    this.fname = fName;
   }
 
-  public void setlastName(String lname) {
-    this.lastName = lname;
+  @JsonIgnore
+  public String getLname() {
+    return lname;
   }
+
+  public String getLastName() {
+    return lname;
+  }
+
+  public void setLname(String lname) {
+    this.lname = lname;
+  }
+
 }

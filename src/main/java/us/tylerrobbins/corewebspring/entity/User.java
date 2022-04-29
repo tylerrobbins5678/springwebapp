@@ -1,14 +1,15 @@
-package us.tylerrobbins.corewebspring.model;
+package us.tylerrobbins.corewebspring.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "users")
 public class User {
   @Id
-  private int id;
+  private Integer id;
   private String email;
   private String fname;
   private String lname;
@@ -18,7 +19,7 @@ public class User {
 
   }
 
-  public User(String email, String fname, String lname, String password, int id) {
+  public User(String email, String fname, String lname, String password, Integer id) {
     super();
     this.id = id;
     this.email = email;
@@ -27,14 +28,16 @@ public class User {
     this.password = password;
   }
 
-  public int getId() {
+  @JsonIgnore
+  public Integer getId() {
     return id;
   }
 
-  public void setId(int id) {
+  public void setId(Integer id) {
     this.id = id;
   }
 
+  @JsonIgnore
   public String getPassword() {
     return this.password;
   }
@@ -43,7 +46,7 @@ public class User {
     this.password = password;
   }
 
-
+  @JsonIgnore
   public String getEmail() {
     return email;
   }
@@ -53,7 +56,7 @@ public class User {
     this.email = email;
   }
 
-
+  @JsonIgnore
   public String getFname() {
     return fname;
   }
@@ -63,7 +66,7 @@ public class User {
     this.fname = fname;
   }
 
-
+  @JsonIgnore
   public String getLname() {
     return lname;
   }
@@ -71,5 +74,18 @@ public class User {
 
   public void setLname(String lname) {
     this.lname = lname;
+  }
+
+  // getters for Jackson / JSON friendly names
+  public String getUserEmail() {
+    return email;
+  }
+
+  public String getFirstName() {
+    return fname;
+  }
+
+  public String getLastName() {
+    return lname;
   }
 }
