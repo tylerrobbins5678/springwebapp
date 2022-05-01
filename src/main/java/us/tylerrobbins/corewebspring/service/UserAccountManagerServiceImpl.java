@@ -55,19 +55,19 @@ public class UserAccountManagerServiceImpl implements UserAccountManagerService 
 
   // return full name if login sucecssfull and information about incorrect field if not
   @Override
-  public String userLogin(HashMap<String, String> user) {
+  public User userLogin(HashMap<String, String> user) {
 
     Optional<User> account =
         userRepository.findByEmailAndPassword(user.get("email"), user.get("password"));
 
     if (account.isPresent()) {
-      return account.get().getFname();
+      return account.get();
 
     } else if (userRepository.findByEmail(user.get("email")).isPresent()) {
-      return "Incorrect Password";
+      return null;
 
     } else {
-      return "Email not found";
+      return null;
     }
   }
 

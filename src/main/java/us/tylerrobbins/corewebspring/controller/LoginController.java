@@ -3,6 +3,8 @@ package us.tylerrobbins.corewebspring.controller;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,6 +22,8 @@ public class LoginController {
   @Autowired
   UserAccountManagerService userAccountManager;
 
+  Logger logger = LoggerFactory.getLogger(LoginController.class);
+
   // provide account homepage
   @RequestMapping(value = "/account/{email}", method = RequestMethod.GET)
   UserPublic userAccount(@PathVariable("email") String email) {
@@ -29,7 +33,7 @@ public class LoginController {
 
   // user login functionality
   @RequestMapping(value = "/account/login", method = RequestMethod.POST)
-  String userlogin(@RequestBody HashMap<String, String> user) {
+  User userlogin(@RequestBody HashMap<String, String> user) {
 
     return userAccountManager.userLogin(user);
   }
@@ -55,6 +59,8 @@ public class LoginController {
   // only return fname and lname
   @RequestMapping(value = "/", method = RequestMethod.GET)
   List<UserPublic> showAllUsers() {
+
+    logger.debug("call to all users created");
 
     return userAccountManager.getAllUsers();
   }

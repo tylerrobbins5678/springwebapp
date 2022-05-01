@@ -10,7 +10,7 @@ public interface UserAccountManagerService {
 
   List<UserPublic> getAllUsers();
 
-  String userLogin(HashMap<String, String> user);
+  User userLogin(HashMap<String, String> user);
 
   UserPublic getPublicAccount(String email);
 
