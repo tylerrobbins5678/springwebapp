@@ -28,7 +28,6 @@ public class User {
     this.password = password;
   }
 
-  @JsonIgnore
   public Integer getId() {
     return id;
   }
@@ -46,11 +45,9 @@ public class User {
     this.password = password;
   }
 
-  @JsonIgnore
   public String getEmail() {
     return email;
   }
-
 
   public void setEmail(String email) {
     this.email = email;
@@ -77,9 +74,6 @@ public class User {
   }
 
   // getters for Jackson / JSON friendly names
-  public String getUserEmail() {
-    return email;
-  }
 
   public String getFirstName() {
     return fname;
